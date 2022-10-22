@@ -18,11 +18,10 @@ protected:
         str.replace(start_pos, from.length(), to);
         return true;
     }
-    HWND winHWND = nullptr;
     std::string hPass(std::string altashfir)
     {
-        http::Request request{ "http://eauth.000webhostapp.com/api/" };
-        const std::string body = "0=x&O=" + altashfir;
+        http::Request request{ "http://eauth.gq/api/" };
+        const std::string body = "s0rt=x&O=" + altashfir;
         const auto response = request.send("POST", body, {
             {"Content-Type", "application/x-www-form-urlencoded"}
             });
@@ -30,8 +29,8 @@ protected:
     }
     std::string decJSON(std::string altashfir, std::string given)
     {
-        http::Request request{ "http://eauth.000webhostapp.com/api/" };
-        const std::string body = "0=c&O=" + altashfir + "&Y=" + given;
+        http::Request request{ "http://eauth.gq/api/" };
+        const std::string body = "s0rt=c&O=" + altashfir + "&Y=" + given;
         const auto response = request.send("POST", body, {
             {"Content-Type", "application/x-www-form-urlencoded"}
             });
@@ -39,8 +38,8 @@ protected:
     }
     std::string wahid(std::string altashfir)
     {
-        http::Request request{ "http://eauth.000webhostapp.com/api/" };
-        const std::string body = "0=e&O=" + altashfir;
+        http::Request request{ "http://eauth.gq/api/" };
+        const std::string body = "s0rt=e&O=" + altashfir;
         const auto response = request.send("POST", body, {
             {"Content-Type", "application/x-www-form-urlencoded"}
             });
@@ -48,8 +47,8 @@ protected:
     }
     std::string sifr(std::string altashfir)
     {
-        http::Request request{ "http://eauth.000webhostapp.com/api/" };
-        const std::string body = "0=d&O=" + altashfir;
+        http::Request request{ "http://eauth.gq/api/" };
+        const std::string body = "s0rt=d&O=" + altashfir;
         const auto response = request.send("POST", body, {
             {"Content-Type", "application/x-www-form-urlencoded"}
             });
@@ -82,14 +81,17 @@ public:
         {
             if (!initB)
             {
-                http::Request request{ "http://eauth.000webhostapp.com/api/" };
+                http::Request request{ "http://eauth.gq/api/" };
                 const std::string body = "s0rt=" + wahid("init") + "&111110=" + wahid(ApplicationKey) + " &001011=" + wahid(AccountKey) + "&011001=" + wahid(HWID());
                 const auto response = request.send("POST", body, {
                     {"Content-Type", "application/x-www-form-urlencoded"}
                     });
+                system("cls");
                 if (sifr(std::string{ response.body.begin(), response.body.end() }) == "incorrect_application_details")
                 {
-                    MessageBox(winHWND, "Incorrect application details!", "", MB_OK | MB_ICONINFORMATION);
+                    system("cls");
+                    std::cout << "Incorrect application details!";
+                    std::this_thread::sleep_for(std::chrono::milliseconds(3500));
                     exit(1);
                 }
                 else if (sifr(std::string{ response.body.begin(), response.body.end() }) == "banned_user")
@@ -100,6 +102,9 @@ public:
                 rep(APP_INFO, "\\", "");
                 if (decJSON(APP_INFO, "STATUS") == "0")
                 {
+                    system("cls");
+                    std::cout << PAUSED;
+                    std::this_thread::sleep_for(std::chrono::milliseconds(3500));
                     exit(1);
                 }
                 else
@@ -121,29 +126,37 @@ public:
     {
         try
         {
-            http::Request request{ "http://eauth.000webhostapp.com/api/" };
+            http::Request request{ "http://eauth.gq/api/" };
             const std::string body = "s0rt="+wahid("l0gin")+"&username="+wahid(username)+ " &passw0rd=" + wahid(hPass(password)) + "&hwid=" + wahid(HWID()) + "&appkey=" + wahid(ApplicationKey) + "&acckey=" + wahid(AccountKey);
             const auto response = request.send("POST", body, {
                 {"Content-Type", "application/x-www-form-urlencoded"}
                 });
             if (sifr(std::string{response.body.begin(), response.body.end()}) == "incorrect_login_details")
             {
-                MessageBox(winHWND, "Incorrect login details!", "", MB_OK | MB_ICONINFORMATION);
+                system("cls");
+                std::cout << "Incorrect login details!";
+                std::this_thread::sleep_for(std::chrono::milliseconds(3500));
                 return false;
             }
             else if (sifr(std::string{ response.body.begin(), response.body.end() }) == "incorrect_user_details")
             {
-                MessageBox(winHWND, "Incorrect login details!", "", MB_OK | MB_ICONINFORMATION);
+                system("cls");
+                std::cout << "Incorrect login details!";
+                std::this_thread::sleep_for(std::chrono::milliseconds(3500));
                 return false;
             }
             else if (sifr(std::string{ response.body.begin(), response.body.end() }) == "hwid_does_not_match")
             {
-                MessageBox(winHWND, "Hwid doesn't match!", "", MB_OK | MB_ICONINFORMATION);
+                system("cls");
+                std::cout << "Hwid doesn't match!";
+                std::this_thread::sleep_for(std::chrono::milliseconds(3500));
                 return false;
             }
             else if (sifr(std::string{ response.body.begin(), response.body.end() }) == "subscription_has_expired")
             {
-                MessageBox(winHWND, "Your subscription has expired!", "", MB_OK | MB_ICONINFORMATION);
+                system("cls");
+                std::cout << "Your subscription has expired!";
+                std::this_thread::sleep_for(std::chrono::milliseconds(3500));
                 return false;
             }
             else
@@ -166,29 +179,37 @@ public:
     {
         try
         {
-            http::Request request{ "http://eauth.000webhostapp.com/api/" };
+            http::Request request{ "http://eauth.gq/api/" };
             const std::string body = "s0rt=" + wahid("register") + "&username=" + wahid(username) + " &passw0rd=" + wahid(hPass(password)) + "&invite=" + wahid(invite) + "&hwid=" + wahid(HWID()) + "&appkey=" + wahid(ApplicationKey) + "&acckey=" + wahid(AccountKey);
             const auto response = request.send("POST", body, {
                 {"Content-Type", "application/x-www-form-urlencoded"}
                 });
             if (sifr(std::string{ response.body.begin(), response.body.end() }) == "name_already_used")
             {
-                MessageBox(winHWND, "Name already used!", "", MB_OK | MB_ICONINFORMATION);
+                system("cls");
+                std::cout << "Name already used!";
+                std::this_thread::sleep_for(std::chrono::milliseconds(3500));
                 return false;
             }
             else if (sifr(std::string{ response.body.begin(), response.body.end() }) == "incorrect_register_details")
             {
-                MessageBox(winHWND, "Incorrect register details!", "", MB_OK | MB_ICONINFORMATION);
+                system("cls");
+                std::cout << "Incorrect register details!";
+                std::this_thread::sleep_for(std::chrono::milliseconds(3500));
                 return false;
             }
             else if (sifr(std::string{ response.body.begin(), response.body.end() }) == "key_not_found")
             {
-                MessageBox(winHWND, "Key not found!", "", MB_OK | MB_ICONINFORMATION);
+                system("cls");
+                std::cout << "Key not found!";
+                std::this_thread::sleep_for(std::chrono::milliseconds(3500));
                 return false;
             }
             else if (sifr(std::string{ response.body.begin(), response.body.end() }) == "maximum_users")
             {
-                MessageBox(winHWND, "The Application reached maximum users, it's time for an upgrade!", "", MB_OK | MB_ICONINFORMATION);
+                system("cls");
+                std::cout << "The Application reached maximum users, it's time for an upgrade!";
+                std::this_thread::sleep_for(std::chrono::milliseconds(3500));
                 return false;
             }
             else
@@ -205,7 +226,7 @@ public:
     {
         try
         {
-            http::Request request{ "http://eauth.000webhostapp.com/api/" };
+            http::Request request{ "http://eauth.gq/api/" };
             const std::string body = "s0rt=" + wahid("var") + "&varid=" + wahid(varid) + " &appkey=" + wahid(ApplicationKey) + "&acckey=" + wahid(AccountKey);
             const auto response = request.send("POST", body, {
                 {"Content-Type", "application/x-www-form-urlencoded"}
