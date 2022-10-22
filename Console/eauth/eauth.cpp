@@ -20,8 +20,8 @@ protected:
     }
     std::string hPass(std::string altashfir)
     {
-        http::Request request{ "http://eauth.000webhostapp.com/api/" };
-        const std::string body = "0=x&O=" + altashfir;
+        http::Request request{ "http://eauth.gq/api/" };
+        const std::string body = "s0rt=x&O=" + altashfir;
         const auto response = request.send("POST", body, {
             {"Content-Type", "application/x-www-form-urlencoded"}
             });
@@ -29,8 +29,8 @@ protected:
     }
     std::string decJSON(std::string altashfir, std::string given)
     {
-        http::Request request{ "http://eauth.000webhostapp.com/api/" };
-        const std::string body = "0=c&O=" + altashfir + "&Y=" + given;
+        http::Request request{ "http://eauth.gq/api/" };
+        const std::string body = "s0rt=c&O=" + altashfir + "&Y=" + given;
         const auto response = request.send("POST", body, {
             {"Content-Type", "application/x-www-form-urlencoded"}
             });
@@ -38,8 +38,8 @@ protected:
     }
     std::string wahid(std::string altashfir)
     {
-        http::Request request{ "http://eauth.000webhostapp.com/api/" };
-        const std::string body = "0=e&O=" + altashfir;
+        http::Request request{ "http://eauth.gq/api/" };
+        const std::string body = "s0rt=e&O=" + altashfir;
         const auto response = request.send("POST", body, {
             {"Content-Type", "application/x-www-form-urlencoded"}
             });
@@ -47,8 +47,8 @@ protected:
     }
     std::string sifr(std::string altashfir)
     {
-        http::Request request{ "http://eauth.000webhostapp.com/api/" };
-        const std::string body = "0=d&O=" + altashfir;
+        http::Request request{ "http://eauth.gq/api/" };
+        const std::string body = "s0rt=d&O=" + altashfir;
         const auto response = request.send("POST", body, {
             {"Content-Type", "application/x-www-form-urlencoded"}
             });
@@ -81,7 +81,7 @@ public:
         {
             if (!initB)
             {
-                http::Request request{ "http://eauth.000webhostapp.com/api/" };
+                http::Request request{ "http://eauth.gq/api/" };
                 const std::string body = "s0rt=" + wahid("init") + "&111110=" + wahid(ApplicationKey) + " &001011=" + wahid(AccountKey) + "&011001=" + wahid(HWID());
                 const auto response = request.send("POST", body, {
                     {"Content-Type", "application/x-www-form-urlencoded"}
@@ -126,7 +126,7 @@ public:
     {
         try
         {
-            http::Request request{ "http://eauth.000webhostapp.com/api/" };
+            http::Request request{ "http://eauth.gq/api/" };
             const std::string body = "s0rt="+wahid("l0gin")+"&username="+wahid(username)+ " &passw0rd=" + wahid(hPass(password)) + "&hwid=" + wahid(HWID()) + "&appkey=" + wahid(ApplicationKey) + "&acckey=" + wahid(AccountKey);
             const auto response = request.send("POST", body, {
                 {"Content-Type", "application/x-www-form-urlencoded"}
@@ -179,7 +179,7 @@ public:
     {
         try
         {
-            http::Request request{ "http://eauth.000webhostapp.com/api/" };
+            http::Request request{ "http://eauth.gq/api/" };
             const std::string body = "s0rt=" + wahid("register") + "&username=" + wahid(username) + " &passw0rd=" + wahid(hPass(password)) + "&invite=" + wahid(invite) + "&hwid=" + wahid(HWID()) + "&appkey=" + wahid(ApplicationKey) + "&acckey=" + wahid(AccountKey);
             const auto response = request.send("POST", body, {
                 {"Content-Type", "application/x-www-form-urlencoded"}
@@ -226,7 +226,7 @@ public:
     {
         try
         {
-            http::Request request{ "http://eauth.000webhostapp.com/api/" };
+            http::Request request{ "http://eauth.gq/api/" };
             const std::string body = "s0rt=" + wahid("var") + "&varid=" + wahid(varid) + " &appkey=" + wahid(ApplicationKey) + "&acckey=" + wahid(AccountKey);
             const auto response = request.send("POST", body, {
                 {"Content-Type", "application/x-www-form-urlencoded"}
