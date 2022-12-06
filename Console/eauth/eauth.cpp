@@ -29,7 +29,7 @@ protected:
     }
     std::string decJSON(std::string altashfir, std::string given)
     {
-        http::Request request{ "http://eauth.gq/api/" };
+        http::Request request{ "http://www.eauth.gq/api/" };
         const std::string body = "s0rt=c&O=" + altashfir + "&Y=" + given;
         const auto response = request.send("POST", body, {
             {"Content-Type", "application/x-www-form-urlencoded"}
